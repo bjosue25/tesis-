@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simulación de Carga de Batería</title>
+    <style>
+        #battery {
+            width: 300px;
+            height: 150px;
+            background-color: #ccc;
+            position: relative;
+            margin: 50px auto;
+            border: 2px solid #000;
+        }
+
+        #charge-level {
+            width: 0;
+            height: 100%;
+            background-color: #00f;
+            position: absolute;
+            bottom: 0;
+            transition: width 1s;
+        }
+
+        #controls {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simulación de Carga de Batería de Carro</h1>
+
+    <div id="battery">
+        <div id="charge-level"></div>
+    </div>
+
+    <div id="controls">
+        <button onclick="cargarBateria()">Cargar Batería</button>
+        <button onclick="detenerCarga()">Detener Carga</button>
+    </div>
+
+    <script>
+        let chargingInterval;
+        let chargeLevel = 0;
+
+        function cargarBateria() {
+            detenerCarga(); // Detener carga previa si está en progreso
+            chargingInterval = setInterval(aumentarCarga, 1000);
+        }
+
+        function aumentarCarga() {
+            if (chargeLevel < 100) {
+                chargeLevel += 10;
+                document.getElementById("charge-level").style.width = chargeLevel + "%";
+            }
+            if (chargeLevel === 100) {
+                detenerCarga();
+            }
+        }
+
+        function detenerCarga() {
+            clearInterval(chargingInterval);
+        }
+    </script>
+</body>
+</html>
